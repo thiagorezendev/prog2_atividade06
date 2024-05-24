@@ -7,5 +7,6 @@
         }
         $_SESSION["nomes"][] = $_POST["nome"];
     } else if ($acao == "mostrar"){
-        var_dump($_SESSION["nomes"]);
+        echo json_encode($_SESSION["nomes"]);
     }
+?>

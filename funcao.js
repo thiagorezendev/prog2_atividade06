@@ -1,5 +1,5 @@
-$(document).ready(()=>{
-    $("#btnInserir").click(()=>{
+$(document).ready(() => {
+    $("#btnInserir").click(() => {
         $.ajax({
             url: "pagina.php",
             type: "POST",
@@ -7,13 +7,10 @@ $(document).ready(()=>{
                 acao: "inserir",
                 nome: $("#nome").val()
             },
-            success: (resultado) => {
-                alert("Sucesso");
+            success: () => {
+                $("#nome").val('');
             }
         });
-    });
-
-    $("#btnMostrar").click(()=>{
         $.ajax({
             url: "pagina.php",
             type: "POST",
@@ -21,7 +18,32 @@ $(document).ready(()=>{
                 acao: "mostrar"
             },
             success: (resultado) => {
-                $("#saida").html(resultado);
+                let nomes = JSON.parse(resultado);
+                let lista = "<ol class='list-group'>";
+                for (let i = 0; i < nomes.length; i++) {
+                    lista += "<li class='list-group-item'>" + nomes[i] + "</li>";
+                }
+                lista += "</ol>";
+                $("#saida").html(lista);
+            }
+        });
+    });
+
+    $("#btnMostrar").click(() => {
+        $.ajax({
+            url: "pagina.php",
+            type: "POST",
+            data: {
+                acao: "mostrar"
+            },
+            success: (resultado) => {
+                let nomes = JSON.parse(resultado);
+                let lista = "<ol class='list-group'>";
+                for (let i = 0; i < nomes.length; i++) {
+                    lista += "<li class='list-group-item'>" + nomes[i] + "</li>";
+                }
+                lista += "</ol>";
+                $("#saida").html(lista);
             }
         });
     });
